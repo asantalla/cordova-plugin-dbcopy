@@ -10,9 +10,7 @@
 
 @implementation sqlDB
 
-- (void)copy:(CDVInvokedUrlCommand*)command
-{
-
+- (void)copy:(CDVInvokedUrlCommand*)command {
     BOOL success;
     NSError *error = nil;
     CDVPluginResult *result = nil;
@@ -24,7 +22,6 @@
     documentsDirectory = [paths objectAtIndex:0];
     
     NSString *dbPath = [documentsDirectory stringByAppendingPathComponent:dbname];
-    
     
     fileManager = [NSFileManager defaultManager];
     
@@ -42,11 +39,8 @@
         } else {
             result =  [CDVPluginResult resultWithStatus:CDVCommandStatus_OK messageAsString:@"File Copied"];
         }
-        
-        
     }
-    else
-    {
+    else {
         NSLog(@"[sqlDB] File Aready Exists");
         result = [CDVPluginResult resultWithStatus:CDVCommandStatus_ERROR messageAsString:@"File Already Exists"];
     }
@@ -54,5 +48,31 @@
     [self.commandDelegate sendPluginResult:result callbackId:command.callbackId];
 }
 
+- (void)isDatabaseCreated:(CDVInvokedUrlCommand*)command {
+    BOOL success;
+    NSError *error = nil;
+    CDVPluginResult *result = nil;
+    NSString *dbname = [command argumentAtIndex:0];
+    
+    NSLog(@"[sqlDB] Dbname = %@",dbname);
+    
+    paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
+    documentsDirectory = [paths objectAtIndex:0];
+    
+    NSString *dbPath = [documentsDirectory stringByAppendingPathComponent:dbname];
+    
+    fileManager = [NSFileManager defaultManager];
+    
+    success = [fileManager fileExistsAtPath:dbPath isDirectory:NO];
+                    
+	if (success) {
+		result =  [CDVPluginResult resultWithStatus:CDVCommandStatus_OK messageAsString:@"Database exists"];
+	}   
+	else {
+		result =  [CDVPluginResult resultWithStatus:CDVCommandStatus_ERROR messageAsString:@"Database doesn't exists"];
+	}         
+	
+	[self.commandDelegate sendPluginResult:result callbackId:command.callbackId];  
+}
 
 @end

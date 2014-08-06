@@ -12,13 +12,13 @@
 #import <Cordova/CDVPlugin.h>
 #import <Cordova/CDV.h>
 
-@interface sqlDB : CDVPlugin
-{
+@interface sqlDB : CDVPlugin {
     NSFileManager* fileManager;
     NSArray* paths;
     NSString* documentsDirectory;
 }
 
 - (void)copy:(CDVInvokedUrlCommand*)command;
+- (void)isDatabaseCreated:(CDVInvokedUrlCommand*)command;
 
 @end
