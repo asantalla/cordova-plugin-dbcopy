@@ -7,6 +7,8 @@
     <name>sqlDB</name>
     
     <description>Copy SQLite Database to Document Directory</description>
+
+	<license>Apache 2.0</license>
     
     <js-module name="sqlDB" src="www/sqlDB.js">
         <clobbers target="window.plugins.sqlDB" />
@@ -37,5 +39,5 @@
         
         <source-file src="src/ios/sqlDB.h" />
         <source-file src="src/ios/sqlDB.m" />
-    </platform>
+    </platform>                
 </plugin>
